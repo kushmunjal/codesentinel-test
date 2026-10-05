@@ -1,0 +1,17 @@
+name: CodeSentinel
+on:
+  pull_request:
+    types: [opened, synchronize]
+  issues:
+    types: [opened]
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kushmunjal/codesentinel-ai@main
+        with:
+          provider: 'groq'
+          model: 'qwen/qwen3.8-27b'
+          api_key: ${{ secrets.LLM_API_KEY }}
+          base_url: 'https://api.groq.com/openai/v1'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
