@@ -1,13 +1,24 @@
 name: CodeSentinel
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, reopened]
   issues:
-    types: [opened]
+    types: [opened, edited]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  checks: write
+  statuses: write
+
 jobs:
-  review:
+  codesentinel:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: kushmunjal/codesentinel-ai@main
         with:
           provider: 'groq'
